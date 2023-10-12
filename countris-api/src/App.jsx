@@ -12,9 +12,32 @@ function App() {
       setData(datos)
     }
 
+  const [dark, setDark] = useState(false);
+
   useEffect(() =>{
     getData()
   }, [])
+
+  const handleBtnDark = () => {
+    setDark(!dark);
+    console.log(dark);
+  };
+
+  useEffect(() => {
+    if (dark) {
+      document.body.style.backgroundColor = "black";
+      document.body.style.color = "white";
+      // const dark = document.getElementById("dark");
+      // dark.style.backgroundColor = "black";
+    } else {
+      document.body.style.backgroundColor = "";
+      document.body.style.color = "";
+      // const dark = document.getElementById("dark");
+      // dark.style.backgroundColor = "black";
+    }
+
+    console.log("first");
+  }, [dark]);
 
   const filterCountries = data.filter((country) =>
     country.name.common.toLowerCase().includes(searchCountry.toLowerCase())
@@ -24,7 +47,30 @@ console.log(data)
 
 
   return (
-    <main>
+    <>
+      <header className="col-12 p-0 m-0 ">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary py-2 mb-5">
+          <div className="container-fluid">
+            <a className="navbar-brand " href="#">
+              Where in the world?
+            </a>
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span className="navbar-toggler-icon"></span>
+            </button>
+          </div>
+          <div className="col-2" onClick={handleBtnDark}>
+            <i className="fa-regular fa-moon"></i> Dark Mode
+          </div>
+        </nav>
+      </header>
 
       <div className="container ">
       <div className="d-flex justify-content-between">
@@ -73,9 +119,10 @@ console.log(data)
       ))} 
       </div>
       
-    </main>
+    </>
   )
 
 }
 export default App
-
+  
+          
