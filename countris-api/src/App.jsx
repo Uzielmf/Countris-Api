@@ -102,7 +102,7 @@ console.log(data)
       </div>
       </div>
       <div className='cards-container'>
-      {data.map((el, key)=>( 
+      {filterCountries.map((el, key)=>( 
         <div className='card-container' key={key}>
           <div className='img-container' key={key}>
             <img src={el.flags.svg} alt="" className='img-flag'/>
