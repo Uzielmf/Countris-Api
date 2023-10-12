@@ -4,11 +4,14 @@ import "./App.css";
 function App() {
   const [data, setData] = useState([]);
   const [searchCountry, setSearchCountry] = useState("");
+  const [countrySerch, setCountrySearch] = useState([])
 
   const getData = async () => {
     const res = await fetch("https://restcountries.com/v3.1/all");
     const datos = await res.json();
     setData(datos);
+    setCountrySearch(datos)
+    console.log(data);
   };
 
   useEffect(() => {
@@ -18,6 +21,19 @@ function App() {
   const filterCountries = data.filter((country) =>
     country.name.common.toLowerCase().includes(searchCountry.toLowerCase())
   );
+
+  const countriesFilter = (continent) =>{
+   const filtrado = countrySerch.filter((country) => country.region.toLowerCase() == continent)
+   return filtrado
+  }
+
+  const handleContinentFilter = (e)=>{
+    console.log('funciona')
+    const continent = document.getElementById('continentes').value
+    const filtrado = countriesFilter(continent)
+    setCountrySearch(filtrado)
+    setData(filtrado)
+  }
 
   return (
     <div className="container ">
@@ -40,11 +56,14 @@ function App() {
           />
         </div>
         <div>
-          <select className="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <button onClick={handleContinentFilter}>Search</button>
+          <select id="continentes" className="form-select" aria-label="Default select example">
+            <option selected>Filter by Region</option>
+            <option value="africa">Africa</option>
+            <option value="americas">America</option>
+            <option value="asia">Asia</option>
+            <option value="europe">Europe</option>
+            <option value="oceania">Oceania</option>
           </select>
         </div>
       </div>
